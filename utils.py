@@ -30,6 +30,9 @@ def get_ipadapter_file(preset, is_sdxl):
     is_insightface = False
     lora_pattern = None
 
+    print("preset", preset)
+    print("ipadapter_list", ipadapter_list)
+
     if preset.startswith("light"):
         if is_sdxl:
             raise Exception("light model is not supported for SDXL")
@@ -107,15 +110,22 @@ def get_ipadapter_file(preset, is_sdxl):
     else:
         raise Exception(f"invalid type '{preset}'")
 
+    print("pattern", pattern)
+
     ipadapter_file = [e for e in ipadapter_list if re.search(pattern, e, re.IGNORECASE)]
     ipadapter_file = folder_paths.get_full_path("ipadapter", ipadapter_file[0]) if ipadapter_file else None
 
     return ipadapter_file, is_insightface, lora_pattern
 
 def get_lora_file(pattern):
+    print("get_lora_file")
+    print("pattern", pattern)
     lora_list = folder_paths.get_filename_list("loras")
+    print("lora_list", lora_list)
     lora_file = [e for e in lora_list if re.search(pattern, e, re.IGNORECASE)]
+    print("lora_file", lora_file)
     lora_file = folder_paths.get_full_path("loras", lora_file[0]) if lora_file else None
+    print("lora_file", lora_file)
 
     return lora_file
 
